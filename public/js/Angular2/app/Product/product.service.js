@@ -34,11 +34,11 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
             ProductService = (function () {
                 function ProductService(_http) {
                     this._http = _http;
-                    this._productUrl = '/API/products';
+                    this.productsUrl = '/API/products';
+                    this.singleProductUrl = '/API/singleProduct?productId=';
                 }
-
                 ProductService.prototype.getProducts = function () {
-                    return this._http.get(this._productUrl).map(function (response) {
+                    return this._http.get(this.productsUrl).map(function (response) {
                         return response.json();
                     })
                         .map(this.createStarsArray)
@@ -46,6 +46,11 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                             return console.log("All" + JSON.stringify(data));
                         })
                         .catch(this.handleError);
+                };
+                ProductService.prototype.getSingleProduct = function (productId) {
+                    return this._http.get(this.singleProductUrl + productId).map(function (response) {
+                        return response.json();
+                    }).catch(this.handleError);
                 };
                 ProductService.prototype.createStarsArray = function (values, index) {
                     var result = [];
@@ -64,7 +69,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                     return Observable_1.Observable.throw('Server error');
                 };
                 ProductService = __decorate([
-                    core_1.Injectable(),
+                    core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], ProductService);
                 return ProductService;

@@ -1,0 +1,24 @@
+<div class="col-sm-6 col-lg-6 col-md-6" *ngIf="product">
+    <div class="thumbnail">
+        <!--<img src="http://placehold.it/320x150" alt="">-->
+
+        <img [src]="product.imageUrl" style="width: 320px;height: 150px" alt="">
+
+        <div class="caption">
+            <h4 class="pull-right">{{product.price | currency:'USD':true:'1.2-2'}}</h4>
+            <h4><a [routerLink]="['/productDetail',product.productId]">{{product.productName}}</a>
+            </h4>
+            <p>{{product.description}}</p>
+        </div>
+        <div class="ratings">
+            <p class="pull-right">15 reviews</p>
+            <p>
+                <span class="glyphicon glyphicon-star" *ngFor='let star of product.starsArray'></span>
+                <!--<span class="glyphicon glyphicon-star"></span>-->
+                <!--<span class="glyphicon glyphicon-star"></span>-->
+                <!--<span class="glyphicon glyphicon-star"></span>-->
+                <!--<span class="glyphicon glyphicon-star"></span>-->
+            </p>
+        </div>
+    </div>
+</div>

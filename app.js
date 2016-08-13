@@ -28,13 +28,18 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/API', productAPI);
-
+// app.all('*', function (req, res) {
+//     res.status(200).sendFile(path.join(__dirname, './public/myIndex.html'));
+//
+// });
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
-    next(err);
+    //next(err);
+    res.render('index', {title: 'Express'});
 });
+
 
 // error handlers
 

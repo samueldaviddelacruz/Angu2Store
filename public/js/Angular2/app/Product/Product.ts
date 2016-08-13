@@ -10,7 +10,8 @@ export interface IProduct {
     price: number,
     starRating: number,
     imageUrl: string,
-    starsArray: number[]
+    starsArray: number[],
+    Category: string
 }
 
 

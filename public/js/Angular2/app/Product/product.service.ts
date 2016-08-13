@@ -12,17 +12,23 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ProductService {
 
-    private _productUrl = '/API/products';
-
+    private productsUrl = '/API/products';
+    private singleProductUrl = '/API/singleProduct?productId='
     constructor(private _http: Http) {
 
     }
 
     getProducts(): Observable<IProduct[]> {
-        return this._http.get(this._productUrl).map((response: Response) => <IProduct[]>response.json())
+        return this._http.get(this.productsUrl).map((response: Response) => <IProduct[]>response.json())
             .map(this.createStarsArray)
             .do(data => console.log("All" + JSON.stringify(data)))
             .catch(this.handleError)
+
+    }
+
+    getSingleProduct(productId: number): Observable<IProduct> {
+        return this._http.get(this.singleProductUrl + productId).map((response: Response) => <IProduct>response.json()
+        ).catch(this.handleError)
 
     }
 

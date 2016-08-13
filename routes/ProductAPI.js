@@ -72,28 +72,22 @@ router.put('/updateProductQuantity', function (req, res) {
 
 });
 
+
+/* GET single product. */
+router.get('/singleProduct', function (req, res) {
+
+    console.log('productId' + req.query.productId)
+    db.getSingleProduct(req.query.productId, function (err, product) {
+        if (err) return res.send(err);
+
+        res.send(product);
+
+    });
+
+});
 /* GET products listing. */
 router.get('/products', function (req, res) {
-    // var updatedProd ={
-    //     "productId": 1,
-    //     "productName": "Leaf Rake",
-    //     "productCode": "GDN-0011",
-    //     "releaseDate": "March 19, 2016",
-    //     "description": "Leaf rake with 48-inch wooden handle.",
-    //     "price": 19.95,
-    //     "starRating": 3.2,
-    //     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png",
-    //     "Quantity": 10,
-    //     "Reviews": []
-    // };
-    // updatedProd.Quantity -= 15;
-    //
-    // db.updateProductQuantity(updatedProd,function(err,product){
-    //     //if(err) return res.send(err);
-    //
-    //    // res.send(updatedProd);
-    //
-    // });
+
 
     db.getAllProducts(function (err, products) {
         if (err) return res.send(err);

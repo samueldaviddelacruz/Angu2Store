@@ -44,6 +44,13 @@ var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb
 
         };
 
+        module.getSingleProduct = function (productId, callback) {
+
+            var query = {"productId": productId};
+            Product.findOne(query, callback);
+
+        };
+
 
         module.updateProductQuantity = function (product, callback) {
 

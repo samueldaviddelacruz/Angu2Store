@@ -24,12 +24,11 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             NavBarComponent = (function () {
                 function NavBarComponent() {
                 }
-
                 NavBarComponent = __decorate([
                     core_1.Component({
                         selector: 'ss-nav-bar',
                         templateUrl: './js/Angular2/app/shared/ss-nav-bar.component.html'
-                    }),
+                    }), 
                     __metadata('design:paramtypes', [])
                 ], NavBarComponent);
                 return NavBarComponent;

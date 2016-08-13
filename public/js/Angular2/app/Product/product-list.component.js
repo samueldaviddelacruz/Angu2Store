@@ -1,4 +1,4 @@
-System.register(["@angular/core", "./product.service"], function (exports_1, context_1) {
+System.register(["@angular/core", "./product.service", "./product-categories.component"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "./product.service"], function (exports_1, con
     var __metadata = (this && this.__metadata) || function (k, v) {
             if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
         };
-    var core_1, product_service_1;
+    var core_1, product_service_1, product_categories_component_1;
     var ProductListComponent;
     return {
         setters: [
@@ -19,6 +19,9 @@ System.register(["@angular/core", "./product.service"], function (exports_1, con
             },
             function (product_service_1_1) {
                 product_service_1 = product_service_1_1;
+            },
+            function (product_categories_component_1_1) {
+                product_categories_component_1 = product_categories_component_1_1;
             }],
         execute: function () {
             /**
@@ -28,20 +31,24 @@ System.register(["@angular/core", "./product.service"], function (exports_1, con
                 function ProductListComponent(_productService) {
                     this._productService = _productService;
                 }
-
                 ProductListComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._productService.getProducts().subscribe(function (result) {
-                        return _this.products = result;
-                    }, function (error) {
-                        return console.log(error);
+                        _this.products = result;
+                        _this.productsCache = result, function (error) {
+                            return console.log(error);
+                        };
                     });
+                };
+                ProductListComponent.prototype.onCategoryClicked = function (filteredproducts) {
+                    this.products = filteredproducts;
                 };
                 ProductListComponent = __decorate([
                     core_1.Component({
                         //selector:'prod-list',
-                        templateUrl: './js/Angular2/app/Product/product-list.component.html'
-                    }),
+                        templateUrl: './js/Angular2/app/Product/product-list.component.html',
+                        directives: [product_categories_component_1.ProductCategoriesComponent]
+                    }), 
                     __metadata('design:paramtypes', [product_service_1.ProductService])
                 ], ProductListComponent);
                 return ProductListComponent;
