@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <base href="/">
+    <title>My first App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link href="css/shop-homepage.css" rel="stylesheet">
+    <!--<link href="app/app.component.css" rel="stylesheet" />-->
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="core-js/client/shim.min.js"></script>
+
+    <script src="zone.js/dist/zone.js"></script>
+    <script src="reflect-metadata/Reflect.js"></script>
+    <script src="systemjs/dist/system.src.js"></script>
+
+    <!-- Configure SystemJS -->
+    <script src="js/Angular2/systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) {
+            console.error(err);
+        });
+    </script>
+</head>
+<body>
+{{{body}}}
+
+
+<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<link href="bootstrap/dist/js/bootstrap.min.js" rel="stylesheet"/>
+</body>
+
+</html>

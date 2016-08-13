@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "product-routes.js",
+  "sourceRoot": "",
+  "sources": [
+    "product-routes.ts"
+  ],
+  "names": [],
+  "mappings": ";;;QAKa,aAAa;;;;YAF1B,sEAAsE;YAEzD,2BAAA,aAAa,GAAU,EAGnC,CAAA,CAAC"
+}

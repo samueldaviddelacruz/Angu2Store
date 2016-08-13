@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ss-nav-bar.component.js",
+  "sourceRoot": "",
+  "sources": [
+    "ss-nav-bar.component.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;YACA;;eAEG;YAMH;gBAAA;gBAGA,CAAC;gBAPD;oBAAC,gBAAS,CAAC;wBACP,QAAQ,EAAC,YAAY;wBACrB,WAAW,EAAC,oDAAoD;qBACnE,CAAC;;mCAAA;gBAIF,sBAAC;YAAD,CAAC,AAHD,IAGC;YAHD,6CAGC,CAAA"
+}

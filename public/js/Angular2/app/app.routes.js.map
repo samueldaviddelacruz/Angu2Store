@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "app.routes.js",
+  "sourceRoot": "",
+  "sources": [
+    "app.routes.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,iEAAiE;;;;;QAMpD,MAAM,EAKN,oBAAoB;;;;;;;;;;YALpB,oBAAA,MAAM,GAAW;gBAC1B,EAAE,IAAI,EAAE,EAAE,EAAE,UAAU,EAAE,WAAW,EAAE,SAAS,EAAE,MAAM,EAAC;gBACvD,EAAE,IAAI,EAAE,UAAU,EAAE,SAAS,EAAE,6CAAoB,EAAE;aACxD,CAAA,CAAC;YAEW,kCAAA,oBAAoB,GAAG,qBAAY,CAAC,OAAO,CAAC,MAAM,CAAC,CAAA,CAAA"
+}
