@@ -39,16 +39,12 @@ var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb
         var Product = mongoose.model('Products', ProductSchema);
 
         module.getAllProducts = function (callback) {
-
             Product.find(callback);
-
         };
 
         module.getSingleProduct = function (productId, callback) {
-
             var query = {"productId": productId};
             Product.findOne(query, callback);
-
         };
 
 
