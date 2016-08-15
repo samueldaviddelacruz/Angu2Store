@@ -14,6 +14,7 @@ export class ProductService {
 
     private productsUrl = '/API/products';
     private singleProductUrl = '/API/singleProduct?productId='
+    private postProductReviewUrl = '/API/newProductReview';
     constructor(private _http: Http) {
 
     }
@@ -27,21 +28,48 @@ export class ProductService {
     }
 
     getSingleProduct(productId: number): Observable<IProduct> {
-        return this._http.get(this.singleProductUrl + productId).map((response: Response) => <IProduct>response.json()
-        ).catch(this.handleError)
+        return this._http.get(this.singleProductUrl + productId)
+            .map((response: Response) => <IProduct>response.json())
+            .map(this.calculateStarsArray)
+            .catch(this.handleError)
 
     }
 
-    private createStarsArray(values: IProduct[], index: number): any {
+    postProductReview(updatedproduct: IProduct) {
+        return this._http.post(this.postProductReviewUrl, updatedproduct).map((response: Response)=><IProduct>response.json()).catch(this.handleError);
+
+    }
+
+    private createStarsArray = (values: IProduct[], index: number): any => {
         let result: IProduct[] = [];
+
         for (let product of values) {
-            product.starsArray = [];
-            for (let i = 0; i < product.starRating; i++) {
-                product.starsArray.push(i);
-            }
-            result.push(product)
+
+            //this.calculateStarsArray(product,index);
+            result.push(this.calculateStarsArray(product, index))
         }
         return result;
+    }
+
+
+    private calculateStarsArray = (product: IProduct, index: number): any => {
+        let sumRewiewsRatings = 0;
+
+        for (let review of product.Reviews) {
+            sumRewiewsRatings += +(review.Rating);
+        }
+
+
+        product.starRating = Math.floor(sumRewiewsRatings / product.Reviews.length);
+
+        product.starsArray = [];
+        for (let i = 0; i < product.starRating; i++) {
+            product.starsArray.push(i);
+        }
+
+        console.log(product)
+        return product;
+
     }
 
     private handleError(error: Response) {

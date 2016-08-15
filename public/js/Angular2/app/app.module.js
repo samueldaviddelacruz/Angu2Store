@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', './app.component', "./Product/product.service", '@angular/http', "./shared/ss-nav-bar.component", "./app.routes", "./Product/product-list.component", "./Product/product-detail.component"], function (exports_1, context_1) {
+System.register(['@angular/core', '@angular/platform-browser', './app.component', "./Product/product.service", '@angular/http', "./shared/ss-nav-bar.component", '@angular/forms', "./app.routes", "./Product/product-list.component", "./Product/product-detail.component"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/platform-browser', './app.component'
     var __metadata = (this && this.__metadata) || function (k, v) {
             if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
         };
-    var core_1, platform_browser_1, app_component_1, product_service_1, http_1, ss_nav_bar_component_1, app_routes_1, product_list_component_1, product_detail_component_1;
+    var core_1, platform_browser_1, app_component_1, product_service_1, http_1, ss_nav_bar_component_1, forms_1, app_routes_1, product_list_component_1, product_detail_component_1;
     var AppModule;
     return {
         setters: [
@@ -32,6 +32,9 @@ System.register(['@angular/core', '@angular/platform-browser', './app.component'
             function (ss_nav_bar_component_1_1) {
                 ss_nav_bar_component_1 = ss_nav_bar_component_1_1;
             },
+            function (forms_1_1) {
+                forms_1 = forms_1_1;
+            },
             function (app_routes_1_1) {
                 app_routes_1 = app_routes_1_1;
             },
@@ -48,7 +51,7 @@ System.register(['@angular/core', '@angular/platform-browser', './app.component'
                 AppModule = __decorate([
                     core_1.NgModule({
                         declarations: [app_component_1.AppComponent, ss_nav_bar_component_1.NavBarComponent, product_list_component_1.ProductListComponent, product_detail_component_1.ProductDetailComponent],
-                        imports: [platform_browser_1.BrowserModule, app_routes_1.APP_ROUTER_PROVIDERS],
+                        imports: [platform_browser_1.BrowserModule, app_routes_1.APP_ROUTER_PROVIDERS, forms_1.FormsModule],
                         bootstrap: [app_component_1.AppComponent],
                         providers: [http_1.HTTP_PROVIDERS, product_service_1.ProductService]
                     }), 

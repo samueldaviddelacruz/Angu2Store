@@ -63,7 +63,7 @@ router.put('/updateProductQuantity', function (req, res) {
     var updatedProd = req.body;
 
     updatedProd.Quantity -= 1;
-    db.updateProductQuantity(updatedProd, function (err, product) {
+    db.module.updateProductQuantity(updatedProd, function (err, product) {
         if (err) return res.send(err);
 
         res.send(updatedProd);
@@ -85,6 +85,22 @@ router.get('/singleProduct', function (req, res) {
     });
 
 });
+
+
+router.post('/newProductReview', function (req, res) {
+
+    var updatedProd = req.body;
+    db.updateProductReviews(updatedProd, function (err, product) {
+
+        console.log(updatedProd)
+        if (err) return res.send(err);
+
+        res.send(updatedProd);
+
+    });
+
+});
+
 /* GET products listing. */
 router.get('/products', function (req, res) {
 

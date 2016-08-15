@@ -33,9 +33,34 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
         execute: function () {
             ProductService = (function () {
                 function ProductService(_http) {
+                    var _this = this;
                     this._http = _http;
                     this.productsUrl = '/API/products';
                     this.singleProductUrl = '/API/singleProduct?productId=';
+                    this.postProductReviewUrl = '/API/newProductReview';
+                    this.createStarsArray = function (values, index) {
+                        var result = [];
+                        for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
+                            var product = values_1[_i];
+                            //this.calculateStarsArray(product,index);
+                            result.push(_this.calculateStarsArray(product, index));
+                        }
+                        return result;
+                    };
+                    this.calculateStarsArray = function (product, index) {
+                        var sumRewiewsRatings = 0;
+                        for (var _i = 0, _a = product.Reviews; _i < _a.length; _i++) {
+                            var review = _a[_i];
+                            sumRewiewsRatings += +(review.Rating);
+                        }
+                        product.starRating = Math.floor(sumRewiewsRatings / product.Reviews.length);
+                        product.starsArray = [];
+                        for (var i = 0; i < product.starRating; i++) {
+                            product.starsArray.push(i);
+                        }
+                        console.log(product);
+                        return product;
+                    };
                 }
                 ProductService.prototype.getProducts = function () {
                     return this._http.get(this.productsUrl).map(function (response) {
@@ -48,21 +73,17 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                         .catch(this.handleError);
                 };
                 ProductService.prototype.getSingleProduct = function (productId) {
-                    return this._http.get(this.singleProductUrl + productId).map(function (response) {
+                    return this._http.get(this.singleProductUrl + productId)
+                        .map(function (response) {
+                            return response.json();
+                        })
+                        .map(this.calculateStarsArray)
+                        .catch(this.handleError);
+                };
+                ProductService.prototype.postProductReview = function (updatedproduct) {
+                    return this._http.post(this.postProductReviewUrl, updatedproduct).map(function (response) {
                         return response.json();
                     }).catch(this.handleError);
-                };
-                ProductService.prototype.createStarsArray = function (values, index) {
-                    var result = [];
-                    for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
-                        var product = values_1[_i];
-                        product.starsArray = [];
-                        for (var i = 0; i < product.starRating; i++) {
-                            product.starsArray.push(i);
-                        }
-                        result.push(product);
-                    }
-                    return result;
                 };
                 ProductService.prototype.handleError = function (error) {
                     console.log(error);

@@ -11,7 +11,17 @@ export interface IProduct {
     starRating: number,
     imageUrl: string,
     starsArray: number[],
+    Reviews: Review[]
     Category: string
+}
+
+
+export interface Review {
+    PostedBy: string,
+    Email: string,
+    Rating: number,
+    Comment: string
+
 }
 
 

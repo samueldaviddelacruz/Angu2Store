@@ -11,7 +11,7 @@
             <p>{{product.description}}</p>
         </div>
         <div class="ratings">
-            <p class="pull-right">15 reviews</p>
+            <p class="pull-right">{{product.Reviews.length}} review{{product.Reviews.length>1?'s':''}}</p>
             <p>
                 <span class="glyphicon glyphicon-star" *ngFor='let star of product.starsArray'></span>
                 <!--<span class="glyphicon glyphicon-star"></span>-->
@@ -19,6 +19,63 @@
                 <!--<span class="glyphicon glyphicon-star"></span>-->
                 <!--<span class="glyphicon glyphicon-star"></span>-->
             </p>
+
+
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Reviews</h3>
+            </div><!-- /col-sm-12 -->
+        </div><!-- /row -->
+
+        <div class="row" *ngFor='let review of product.Reviews'>
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div><!-- /thumbnail -->
+            </div><!-- /col-sm-1 -->
+            <!--{{review.Postedby}}-->
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>{{review.PostedBy}}</strong> <span class="text-muted">posted on {{ '12/12/2016'}}</span>
+                    </div>
+                    <div class="panel-body">
+                        {{review.Comment}}
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+
+
+    <div class="form-group">
+        <h3>Post A Review</h3>
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" [(ngModel)]="newReview.Email" id="email">
+
+        <label for="email">Username:</label>
+        <input type="text" class="form-control" [(ngModel)]="newReview.PostedBy" id="username">
+        <h3>How many stars?</h3>
+        <select class="form-control" [(ngModel)]="newReview.Rating">
+
+            <option *ngFor="let number of [1,2,3,4,5]">
+                {{number}}
+            </option>
+
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+        <textarea class="form-control textarea" rows="3" [(ngModel)]="newReview.Comment" name="Message" id="Message"
+                  placeholder="Message"></textarea>
+    </div>
+
+    <button class="btn btn-default" (click)="postReview()">Send Review</button>
 </div>

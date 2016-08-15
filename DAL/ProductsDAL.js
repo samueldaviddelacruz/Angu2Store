@@ -54,6 +54,18 @@ var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb
 
         module.updateProductQuantity = function (product, callback) {
 
+            validateProduct(product, callback);
+
+            updateProductById(product, callback);
+
+        };
+
+        module.updateProductReviews = function (product, callback) {
+            updateProductById(product, callback);
+        };
+
+
+        function validateProduct(product, callback) {
             var prod = new Product(product);
 
             var validationError = prod.validateSync();
@@ -62,11 +74,14 @@ var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb
                 return callback(validationError, null);
             }
 
+        }
+
+        function updateProductById(product, callback) {
             var query = {"productId": product.productId};
 
             Product.findOneAndUpdate(query, product, {upsert: true, runValidators: true}, callback);
-
         }
+
 
 
     });
