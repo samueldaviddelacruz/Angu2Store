@@ -11,7 +11,7 @@ import {Component} from '@angular/core';
     selector: 'm-app',
     template: `
     <div>
-        <ss-nav-bar></ss-nav-bar>
+        <!--<ss-nav-bar></ss-nav-bar>-->
         <div class='container'>
             <router-outlet></router-outlet>
         </div>

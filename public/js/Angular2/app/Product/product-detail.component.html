@@ -20,7 +20,7 @@
                 <!--<span class="glyphicon glyphicon-star"></span>-->
             </p>
 
-
+            <button class="btn btn-default" (click)="addToCart()">Add to Cart!</button>
         </div>
     </div>
     <div class="container">
@@ -55,11 +55,11 @@
 
     <div class="form-group">
         <h3>Post A Review</h3>
-        <label for="email">Email address:</label>
-        <input type="email" class="form-control" [(ngModel)]="newReview.Email" id="email">
+        <!--<label for="email">Email address:</label>-->
+        <!--<input type="email" class="form-control" [(ngModel)]="newReview.Email" id="email">-->
 
-        <label for="email">Username:</label>
-        <input type="text" class="form-control" [(ngModel)]="newReview.PostedBy" id="username">
+        <!--<label for="email">Username:</label>-->
+        <!--<input type="text" class="form-control" [(ngModel)]="newReview.PostedBy" id="username">-->
         <h3>How many stars?</h3>
         <select class="form-control" [(ngModel)]="newReview.Rating">
 

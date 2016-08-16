@@ -1,7 +1,7 @@
 /**
  * Created by samuel on 8/10/16.
  */
-System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/operator/do', 'rxjs/add/operator/catch'], function (exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/operator/do', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw'], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -29,6 +29,8 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
             function (_1) {
             },
             function (_2) {
+            },
+            function (_3) {
             }],
         execute: function () {
             ProductService = (function () {
@@ -38,6 +40,9 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                     this.productsUrl = '/API/products';
                     this.singleProductUrl = '/API/singleProduct?productId=';
                     this.postProductReviewUrl = '/API/newProductReview';
+                    this.addToCartUrl = '/API/addProductToCart';
+                    this.removeFromCartUrl = '/API/removeFromCart';
+                    this.userCartUrl = '/API/userCart';
                     this.createStarsArray = function (values, index) {
                         var result = [];
                         for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
@@ -72,6 +77,12 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                         })
                         .catch(this.handleError);
                 };
+                ProductService.prototype.getUserCart = function () {
+                    return this._http.get(this.userCartUrl).map(function (response) {
+                        return response.json();
+                    })
+                        .catch(this.handleError);
+                };
                 ProductService.prototype.getSingleProduct = function (productId) {
                     return this._http.get(this.singleProductUrl + productId)
                         .map(function (response) {
@@ -80,14 +91,26 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                         .map(this.calculateStarsArray)
                         .catch(this.handleError);
                 };
-                ProductService.prototype.postProductReview = function (updatedproduct) {
-                    return this._http.post(this.postProductReviewUrl, updatedproduct).map(function (response) {
+                ProductService.prototype.postProductReview = function (prodId, newReview) {
+                    return this._http.post(this.postProductReviewUrl, {
+                        prodId: prodId,
+                        newReview: newReview
+                    }).map(function (response) {
+                        return response.json();
+                    }).map(this.calculateStarsArray).catch(this.handleError);
+                };
+                ProductService.prototype.addToCart = function (product) {
+                    return this._http.post(this.addToCartUrl, product).map(function (response) {
+                        return response.json();
+                    }).catch(this.handleError);
+                };
+                ProductService.prototype.removeFromCart = function (product) {
+                    return this._http.post(this.removeFromCartUrl, product).map(function (response) {
                         return response.json();
                     }).catch(this.handleError);
                 };
                 ProductService.prototype.handleError = function (error) {
-                    console.log(error);
-                    return Observable_1.Observable.throw('Server error');
+                    return Observable_1.Observable.throw(error);
                 };
                 ProductService = __decorate([
                     core_1.Injectable(), 

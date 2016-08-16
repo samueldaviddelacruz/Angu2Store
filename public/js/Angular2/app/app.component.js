@@ -30,7 +30,7 @@ System.register(['@angular/core'], function (exports_1, context_1) {
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'm-app',
-                        template: "\n    <div>\n        <ss-nav-bar></ss-nav-bar>\n        <div class='container'>\n            <router-outlet></router-outlet>\n        </div>\n     </div>\n     ",
+                        template: "\n    <div>\n        <!--<ss-nav-bar></ss-nav-bar>-->\n        <div class='container'>\n            <router-outlet></router-outlet>\n        </div>\n     </div>\n     ",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

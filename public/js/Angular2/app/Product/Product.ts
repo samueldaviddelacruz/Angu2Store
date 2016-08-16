@@ -17,8 +17,7 @@ export interface IProduct {
 
 
 export interface Review {
-    PostedBy: string,
-    Email: string,
+    PostedBy: string
     Rating: number,
     Comment: string
 

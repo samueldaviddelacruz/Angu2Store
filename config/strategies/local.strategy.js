@@ -12,8 +12,8 @@ module.exports = function () {
         function (username, password, done) {
 
             authDAL.verifyUser(username, password, done);
-            // mongodb.connect(mongoUrl, function (err, db) {
-            //     var collection = db.collection('usuariosLibrary');
+            // mongodb.connect(mongoUrl, function (err, productsDAL) {
+            //     var collection = productsDAL.collection('usuariosLibrary');
             //     collection.findOne({ username: username }, function (err, results) {
             //         if (results.password === password) {
             //             var user = results;

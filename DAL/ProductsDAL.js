@@ -4,7 +4,6 @@
 var mongoose = require('mongoose');
 var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb";
 
-
 (function (module) {
 
     mongoose.connect(mongoUrl);
@@ -56,8 +55,10 @@ var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb
 
         };
 
-        module.updateProductReviews = function (product, callback) {
-            updateProductById(product, callback);
+        module.updateProductReviews = function (prodId, newReview, callback) {
+
+            updateProductReviews(productId, newReview, callback);
+            //updateProductById(product, callback);
         };
 
 
@@ -72,12 +73,17 @@ var mongoUrl = "mongodb://ingsamy:mega007@ds059519.mongolab.com:59519/mongolabdb
 
         }
 
+        function updateProductReviews(productId, newReview, callback) {
+            var query = {"productId": productId};
+
+            Product.update(query, {$addToSet: {Reviews: newReview}}, {upsert: true, runValidators: true}, callback);
+        }
+
         function updateProductById(product, callback) {
             var query = {"productId": product.productId};
 
             Product.findOneAndUpdate(query, product, {upsert: true, runValidators: true}, callback);
         }
-
 
 
     });

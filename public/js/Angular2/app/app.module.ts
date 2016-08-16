@@ -11,10 +11,11 @@ import {FormsModule}   from '@angular/forms';
 import {APP_ROUTER_PROVIDERS} from "./app.routes";
 import {ProductListComponent} from "./Product/product-list.component";
 import {ProductDetailComponent} from "./Product/product-detail.component";
+import {CartComponent} from "./Product/Cart.component";
 
 
 @NgModule({
-    declarations: [AppComponent, NavBarComponent, ProductListComponent, ProductDetailComponent],
+    declarations: [AppComponent, NavBarComponent, ProductListComponent, ProductDetailComponent, CartComponent],
 
     imports: [BrowserModule, APP_ROUTER_PROVIDERS, FormsModule],
     bootstrap: [AppComponent],

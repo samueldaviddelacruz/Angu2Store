@@ -35,18 +35,16 @@ export class ProductDetailComponent {
 
     getProduct(id: number) {
         this._productService.getSingleProduct(id).subscribe(
-            product => {
-                this.product = product;
-                console.log(product),
+            product =>
+                this.product = product,
                     error => console.log(error)
-            });
+        );
     }
 
     InitReview() {
         this.newReview = {
             PostedBy: "",
-            Email: "",
-            Rating: 0,
+            Rating: 1,
             Comment: ""
 
         }
@@ -54,16 +52,37 @@ export class ProductDetailComponent {
 
     postReview() {
 
-        this.product.Reviews.push(this.newReview);
 
-        this._productService.postProductReview(this.product).subscribe(
-            product => {
-                this.product = product;
-                this.InitReview(),
-                    error => console.log(error)
-            });
+        //this.product.Reviews.push(this.newReview);
+
+
+        this._productService.postProductReview(this.product.productId, this.newReview).subscribe(
+            product =>
+                this.updateProductWithReview(product),
+            error => this.HandleErrorResponse(error)
+        );
 
         //this.InitReview();
+    }
+
+    addToCart() {
+        this._productService.addToCart(this.product).subscribe(
+            product =>
+                this.updateProductWithReview(product),
+            error => this.HandleErrorResponse(error)
+        );
+    }
+
+    private updateProductWithReview(product: IProduct) {
+        this.product = product;
+        this.InitReview();
+    }
+
+    private HandleErrorResponse(errorResponse: any) {
+        console.log(errorResponse)
+        if (errorResponse.status === 401) {
+            alert('Please Log In, thanks :)')
+        }
     }
 
 

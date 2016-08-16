@@ -2,7 +2,8 @@
  * Created by samuel on 8/10/16.
  */
 var express = require('express');
-var db = require('../DAL/ProductsDAL');
+var productsDAL = require('../DAL/ProductsDAL');
+var AuthDal = require('../DAL/AuthDAL');
 var router = express.Router();
 var AuthMiddleware = require('../config/Authentication/Middleware');
 
@@ -11,7 +12,7 @@ router.put('/updateProductQuantity', AuthMiddleware.ensureApiAuthenticated, func
     var updatedProd = req.body;
 
     updatedProd.Quantity -= 1;
-    db.module.updateProductQuantity(updatedProd, function (err, product) {
+    productsDAL.module.updateProductQuantity(updatedProd, function (err, product) {
         if (err) return res.send(err);
 
         res.send(updatedProd);
@@ -22,10 +23,10 @@ router.put('/updateProductQuantity', AuthMiddleware.ensureApiAuthenticated, func
 
 
 /* GET single product. */
-router.get('/singleProduct', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+router.get('/singleProduct', function (req, res) {
 
     console.log('productId' + req.query.productId)
-    db.getSingleProduct(req.query.productId, function (err, product) {
+    productsDAL.getSingleProduct(req.query.productId, function (err, product) {
         if (err) return res.send(err);
 
         res.send(product);
@@ -37,23 +38,72 @@ router.get('/singleProduct', AuthMiddleware.ensureApiAuthenticated, function (re
 
 router.post('/newProductReview', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
 
-    var updatedProd = req.body;
-    db.updateProductReviews(updatedProd, function (err, product) {
+    var prodId = req.body.prodId;
+    var newReview = req.body.newReview;
+    newReview.PostedBy = req.user.name;
 
-        console.log(updatedProd)
+    productsDAL.updateProductReviews(prodId, newReview, function (err, result) {
+
+        console.log(result)
         if (err) return res.send(err);
 
-        res.send(updatedProd);
+        productsDAL.getSingleProduct(prodId, function (err, product) {
+            console.log(product);
+            res.send(product);
+        });
+
 
     });
 
 });
 
+router.post('/addProductToCart', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+    var product = req.body;
+
+    AuthDal.addProductToCart(req.user, product, function (err, result) {
+
+        console.log(result);
+        if (err) return res.send(err);
+
+        res.send(product);
+
+    })
+
+});
+
+
+router.post('/removeFromCart', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+    var product = req.body;
+
+    AuthDal.removeProductFromCart(req.user, product, function (err, result) {
+
+        console.log(result);
+        if (err) return res.send(err);
+
+        res.send(product);
+
+    })
+
+});
+
+
+router.get('/userCart', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+
+    AuthDal.getUserCart(req.user, function (err, cart) {
+
+        console.log(cart);
+        if (err) return res.send(err);
+        res.send(cart);
+
+    })
+
+});
+
 /* GET products listing. */
-router.get('/products', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+router.get('/products', function (req, res) {
 
 
-    db.getAllProducts(function (err, products) {
+    productsDAL.getAllProducts(function (err, products) {
         if (err) return res.send(err);
 
         res.send(products);

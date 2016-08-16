@@ -6,15 +6,22 @@ import {Injectable} from '@angular/core'
 
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {IProduct} from "./Product";
+import {IProduct, Review} from "./Product";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 @Injectable()
 export class ProductService {
 
     private productsUrl = '/API/products';
     private singleProductUrl = '/API/singleProduct?productId='
     private postProductReviewUrl = '/API/newProductReview';
+    private addToCartUrl = '/API/addProductToCart'
+    private removeFromCartUrl = '/API/removeFromCart'
+
+    private userCartUrl = '/API/userCart'
+
+
     constructor(private _http: Http) {
 
     }
@@ -24,7 +31,11 @@ export class ProductService {
             .map(this.createStarsArray)
             .do(data => console.log("All" + JSON.stringify(data)))
             .catch(this.handleError)
+    }
 
+    getUserCart(): Observable<any> {
+        return this._http.get(this.userCartUrl).map((response: Response) => <any>response.json())
+            .catch(this.handleError)
     }
 
     getSingleProduct(productId: number): Observable<IProduct> {
@@ -35,9 +46,20 @@ export class ProductService {
 
     }
 
-    postProductReview(updatedproduct: IProduct) {
-        return this._http.post(this.postProductReviewUrl, updatedproduct).map((response: Response)=><IProduct>response.json()).catch(this.handleError);
+    postProductReview(prodId: number, newReview: Review) {
+        return this._http.post(this.postProductReviewUrl, {
+            prodId: prodId,
+            newReview: newReview
+        }).map((response: Response)=><IProduct>response.json()).map(this.calculateStarsArray).catch(this.handleError);
 
+    }
+
+    addToCart(product: IProduct) {
+        return this._http.post(this.addToCartUrl, product).map((response: Response)=><IProduct>response.json()).catch(this.handleError);
+    }
+
+    removeFromCart(product: any) {
+        return this._http.post(this.removeFromCartUrl, product).map((response: Response)=><any>response.json()).catch(this.handleError);
     }
 
     private createStarsArray = (values: IProduct[], index: number): any => {
@@ -73,8 +95,8 @@ export class ProductService {
     }
 
     private handleError(error: Response) {
-        console.log(error);
-        return Observable.throw('Server error');
+
+        return Observable.throw(error);
     }
 
 }
