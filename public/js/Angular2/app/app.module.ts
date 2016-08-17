@@ -12,10 +12,11 @@ import {APP_ROUTER_PROVIDERS} from "./app.routes";
 import {ProductListComponent} from "./Product/product-list.component";
 import {ProductDetailComponent} from "./Product/product-detail.component";
 import {CartComponent} from "./Product/Cart.component";
+import {CheckoutComponent} from "./Product/Checkout.component";
 
 
 @NgModule({
-    declarations: [AppComponent, NavBarComponent, ProductListComponent, ProductDetailComponent, CartComponent],
+    declarations: [AppComponent, NavBarComponent, ProductListComponent, ProductDetailComponent, CartComponent, CheckoutComponent],
 
     imports: [BrowserModule, APP_ROUTER_PROVIDERS, FormsModule],
     bootstrap: [AppComponent],

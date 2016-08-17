@@ -42,7 +42,9 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                     this.postProductReviewUrl = '/API/newProductReview';
                     this.addToCartUrl = '/API/addProductToCart';
                     this.removeFromCartUrl = '/API/removeFromCart';
+                    this.updateCartUrl = '/API/updateCart';
                     this.userCartUrl = '/API/userCart';
+                    this.postOrderUrl = '/API/newOrder';
                     this.createStarsArray = function (values, index) {
                         var result = [];
                         for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
@@ -101,6 +103,16 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                 };
                 ProductService.prototype.addToCart = function (product) {
                     return this._http.post(this.addToCartUrl, product).map(function (response) {
+                        return response.json();
+                    }).catch(this.handleError);
+                };
+                ProductService.prototype.updateCart = function (cart) {
+                    return this._http.put(this.updateCartUrl, cart).map(function (response) {
+                        return response.json();
+                    }).catch(this.handleError);
+                };
+                ProductService.prototype.placeOrder = function (order) {
+                    return this._http.post(this.postOrderUrl, order).map(function (response) {
                         return response.json();
                     }).catch(this.handleError);
                 };

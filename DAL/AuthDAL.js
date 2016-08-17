@@ -98,6 +98,15 @@ var hasher = require('../config/Authentication/hasher');
 
     }
 
+    module.updateCart = function (user, cart, callback) {
+
+        UserModel.update({email: user.email}, {Cart: cart}, {
+            upsert: true,
+            runValidators: true
+        }, callback);
+
+    };
+
     module.removeProductFromCart = function (user, product, callback) {
 
         UserModel.update({

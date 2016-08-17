@@ -1,8 +1,8 @@
 // import { provideRouter, RouterConfig } from '@angular/router';
-System.register(['@angular/router', "./Product/product-list.component", "./Product/product-detail.component", "./Product/Cart.component"], function (exports_1, context_1) {
+System.register(['@angular/router', "./Product/product-list.component", "./Product/product-detail.component", "./Product/Cart.component", "./Product/Checkout.component"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, product_list_component_1, product_detail_component_1, Cart_component_1;
+    var router_1, product_list_component_1, product_detail_component_1, Cart_component_1, Checkout_component_1;
     var routes, APP_ROUTER_PROVIDERS;
     return {
         setters: [
@@ -17,13 +17,17 @@ System.register(['@angular/router', "./Product/product-list.component", "./Produ
             },
             function (Cart_component_1_1) {
                 Cart_component_1 = Cart_component_1_1;
+            },
+            function (Checkout_component_1_1) {
+                Checkout_component_1 = Checkout_component_1_1;
             }],
         execute: function () {
             exports_1("routes", routes = [
                 {path: '', redirectTo: '/products', pathMatch: 'full'},
                 {path: 'products', component: product_list_component_1.ProductListComponent},
                 {path: 'productDetail/:id', component: product_detail_component_1.ProductDetailComponent},
-                {path: 'cart', component: Cart_component_1.CartComponent}
+                {path: 'cart', component: Cart_component_1.CartComponent},
+                {path: 'checkout', component: Checkout_component_1.CheckoutComponent}
             ]);
             exports_1("APP_ROUTER_PROVIDERS", APP_ROUTER_PROVIDERS = router_1.RouterModule.forRoot(routes));
         }

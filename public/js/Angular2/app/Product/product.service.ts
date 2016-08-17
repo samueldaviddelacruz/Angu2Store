@@ -18,8 +18,10 @@ export class ProductService {
     private postProductReviewUrl = '/API/newProductReview';
     private addToCartUrl = '/API/addProductToCart'
     private removeFromCartUrl = '/API/removeFromCart'
-
+    private updateCartUrl = '/API/updateCart'
     private userCartUrl = '/API/userCart'
+    private postOrderUrl = '/API/newOrder';
+
 
 
     constructor(private _http: Http) {
@@ -58,9 +60,24 @@ export class ProductService {
         return this._http.post(this.addToCartUrl, product).map((response: Response)=><IProduct>response.json()).catch(this.handleError);
     }
 
+    updateCart(cart: any) {
+        return this._http.put(this.updateCartUrl, cart).map((response: Response)=><any>response.json()).catch(this.handleError);
+    }
+
+
+    placeOrder(order: any) {
+        return this._http.post(this.postOrderUrl, order).map((response: Response)=><any>response.json()).catch(this.handleError);
+
+    }
+
+
+
+
+
     removeFromCart(product: any) {
         return this._http.post(this.removeFromCartUrl, product).map((response: Response)=><any>response.json()).catch(this.handleError);
     }
+
 
     private createStarsArray = (values: IProduct[], index: number): any => {
         let result: IProduct[] = [];

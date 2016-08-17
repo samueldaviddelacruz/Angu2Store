@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var productsDAL = require('../DAL/ProductsDAL');
+var OrdersDal = require('../DAL/OrdersDAL');
 var AuthDal = require('../DAL/AuthDAL');
 var router = express.Router();
 var AuthMiddleware = require('../config/Authentication/Middleware');
@@ -86,6 +87,43 @@ router.post('/removeFromCart', AuthMiddleware.ensureApiAuthenticated, function (
 
 });
 
+router.put('/updateCart', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+    var cart = req.body;
+
+    AuthDal.updateCart(req.user, cart, function (err, result) {
+
+        console.log(result);
+        if (err) return res.send(err);
+
+        res.send(cart);
+
+    })
+
+});
+
+
+router.post('/newOrder', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
+    var order = req.body;
+    var emptyCart = [];
+    order.shippingDetails.email = req.user.email;
+
+    AuthDal.updateCart(req.user, emptyCart, function (err, result) {
+
+        console.log(result);
+        if (err) return res.send(err);
+
+        OrdersDal.placeOrder(order, function (err, result) {
+            if (err)
+                return res.send(err);
+            return res.send(result);
+
+            //implement email send functionality
+        })
+
+    })
+
+
+});
 
 router.get('/userCart', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
 

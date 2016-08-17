@@ -69,12 +69,12 @@
                     <td>  </td>
                     <td>  </td>
                     <td>
-                        <button type="button" class="btn btn-default">
+                        <button type="button" class="btn btn-default" [routerLink]="['/products']">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
                         </button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-success">
+                        <button type="button" class="btn btn-success" (click)="goToCheckout()">
                             Checkout <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </td>

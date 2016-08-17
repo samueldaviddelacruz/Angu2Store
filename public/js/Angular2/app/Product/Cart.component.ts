@@ -3,6 +3,8 @@
  */
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {ProductService} from "./product.service";
+import {Router} from '@angular/router';
+
 @Component({
     templateUrl: './js/Angular2/app/Product/Cart.component.html'
 })
@@ -10,7 +12,7 @@ export class CartComponent {
     cart: any[];
     total: number = 0;
 
-    constructor(private _productService: ProductService) {
+    constructor(private _productService: ProductService, private router: Router) {
 
     }
 
@@ -46,6 +48,15 @@ export class CartComponent {
         }
 
         console.log(this.total);
+
+    }
+
+    goToCheckout() {
+
+        this._productService.updateCart(this.cart).subscribe(cart => {
+            this.router.navigate(['/checkout']),
+                error=>console.log(error);
+        });
 
     }
 
