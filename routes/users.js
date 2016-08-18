@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var authDal = require('../DAL/AuthDAL');
 var passport = require('passport');
-
+var mailHelper = require('../helpers/mailhelper');
 /* GET users listing. */
 router.post('/register', function (req, res, next) {
 
@@ -18,6 +18,7 @@ router.post('/register', function (req, res, next) {
 });
 
 router.get('/register', function (req, res) {
+
 
     res.render('register');
 

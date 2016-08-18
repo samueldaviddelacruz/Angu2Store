@@ -7,6 +7,7 @@ var OrdersDal = require('../DAL/OrdersDAL');
 var AuthDal = require('../DAL/AuthDAL');
 var router = express.Router();
 var AuthMiddleware = require('../config/Authentication/Middleware');
+var mailHelper = require('../helpers/mailhelper');
 
 
 router.put('/updateProductQuantity', AuthMiddleware.ensureApiAuthenticated, function (req, res) {
@@ -107,15 +108,24 @@ router.post('/newOrder', AuthMiddleware.ensureApiAuthenticated, function (req, r
     var emptyCart = [];
     order.shippingDetails.email = req.user.email;
 
-    AuthDal.updateCart(req.user, emptyCart, function (err, result) {
+    AuthDal.updateCart(req.user, emptyCart, function (err, updateresult) {
 
-        console.log(result);
+        console.log(updateresult);
         if (err) return res.send(err);
 
-        OrdersDal.placeOrder(order, function (err, result) {
+        OrdersDal.placeOrder(order, function (err, savedOrder) {
             if (err)
                 return res.send(err);
-            return res.send(result);
+
+            // console.log(result)
+            mailHelper.sendBillingMail(savedOrder, 'Your order from my little shop', savedOrder.shippingDetails.email, function (error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);
+            });
+
+            return res.send(savedOrder);
 
             //implement email send functionality
         })

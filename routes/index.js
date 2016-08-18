@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var AuthMiddleware = require('../config/Authentication/Middleware');
-
+var mailHelper = require('../helpers/mailhelper');
 /* GET home page. */
 
 //added the :angular to trick the router to threat angular routes as just a parameter after the /,
@@ -14,6 +14,8 @@ router.get('/productDetail/:id', function (req, res, next) {
     res.render('index', {title: 'Express', user: req.user});
 });
 router.get('/:angular', function (req, res, next) {
+
+
     res.render('index', {title: 'Express', user: req.user});
 });
 
